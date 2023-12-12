@@ -17,18 +17,24 @@ public:
     DiscreteTimeLPF(PinocchioInterface pinocchioInterface, CentroidalModelInfo info, const PinocchioEndEffectorKinematics& eeKinematics);
 
     vector_t update(const ros::Time& time, const ros::Duration& period) override;
+    void updateTorque(const vector_t& jointEffort);
 
     void loadSetting(const std::string& taskFile, bool verbose);
 
 private:
     scalar_t gamma_;
     scalar_t beta_;
-    scalar_t g_;
+    Eigen::Matrix<scalar_t, 12, 18> j_;
+    Eigen::Matrix<scalar_t, 12, 1> aTau_;
+    Eigen::Matrix<scalar_t, 12, 18> Sl_;
+    Eigen::Matrix<scalar_t, 12, 1> estimateF_;
+    Eigen::Matrix<scalar_t, 18, 1> g_;
     Eigen::Matrix<scalar_t, 12, 18> S_;
     Eigen::Matrix<scalar_t, 18, 1> tau1_;
     Eigen::Matrix<scalar_t, 18, 1> tau2_;
     Eigen::Matrix<scalar_t, 18, 1> lastTau2_;
     Eigen::Matrix<scalar_t, 18, 1> hatTau_;
+    Eigen::Matrix<scalar_t, 18, 18> lastM_;
 
 
 

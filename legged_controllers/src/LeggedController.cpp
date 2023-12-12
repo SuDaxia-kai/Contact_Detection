@@ -20,9 +20,12 @@
 #include <angles/angles.h>
 #include <legged_estimation/FromTopiceEstimate.h>
 #include <legged_estimation/LinearKalmanFilter.h>
+#include <legged_estimation/DiscreteTimeLPF.h>
 #include <legged_wbc/HierarchicalWbc.h>
 #include <legged_wbc/WeightedWbc.h>
 #include <pluginlib/class_list_macros.hpp>
+
+#include <std_msgs/Float64MultiArray.h>
 
 namespace legged {
 bool LeggedController::init(hardware_interface::RobotHW* robot_hw, ros::NodeHandle& controller_nh) {
@@ -64,6 +67,9 @@ bool LeggedController::init(hardware_interface::RobotHW* robot_hw, ros::NodeHand
 
   // State estimation
   setupStateEstimate(taskFile, verbose);
+
+  // Force estimation
+  setupForceEstimate();
 
   // Whole body control
   wbc_ = std::make_shared<WeightedWbc>(leggedInterface_->getPinocchioInterface(), leggedInterface_->getCentroidalModelInfo(),
@@ -144,7 +150,7 @@ void LeggedController::update(const ros::Time& time, const ros::Duration& period
 }
 
 void LeggedController::updateStateEstimation(const ros::Time& time, const ros::Duration& period) {
-  vector_t jointPos(hybridJointHandles_.size()), jointVel(hybridJointHandles_.size());
+  vector_t jointPos(hybridJointHandles_.size()), jointVel(hybridJointHandles_.size()), jointEffort(hybridJointHandles_.size());
   contact_flag_t contacts;
   Eigen::Quaternion<scalar_t> quat;
   contact_flag_t contactFlag;
@@ -154,6 +160,7 @@ void LeggedController::updateStateEstimation(const ros::Time& time, const ros::D
   for (size_t i = 0; i < hybridJointHandles_.size(); ++i) {
     jointPos(i) = hybridJointHandles_[i].getPosition();
     jointVel(i) = hybridJointHandles_[i].getVelocity();
+    jointEffort(i) = hybridJointHandles_[i].getEffort();
   }
   for (size_t i = 0; i < contacts.size(); ++i) {
     contactFlag[i] = contactHandles_[i].isContact();
@@ -172,6 +179,22 @@ void LeggedController::updateStateEstimation(const ros::Time& time, const ros::D
   }
 
   stateEstimate_->updateJointStates(jointPos, jointVel);
+
+  forceEstimate_->updateJointStates(jointPos, jointVel);
+  dynamic_cast<DiscreteTimeLPF&>(*forceEstimate_).updateTorque(jointEffort);
+  vector_t mytest = dynamic_cast<DiscreteTimeLPF&>(*forceEstimate_).update(time, period);
+  std::cerr << "estimate force is : " << mytest << std::endl;
+
+  // visualization of estimateF_
+  ros::NodeHandle nh;
+  std_msgs::Float64MultiArray msg;
+  msg.data.clear();
+  for (int i = 0; i < mytest.size(); ++i) {
+    msg.data.push_back(mytest(i));
+  }
+  estimateFPublisher_.publish(msg);
+
+
   stateEstimate_->updateContact(contactFlag);
   stateEstimate_->updateImu(quat, angularVel, linearAccel, orientationCovariance, angularVelCovariance, linearAccelCovariance);
   measuredRbdState_ = stateEstimate_->update(time, period);
@@ -257,10 +280,18 @@ void LeggedController::setupStateEstimate(const std::string& taskFile, bool verb
   currentObservation_.time = 0;
 }
 
+void LeggedController::setupForceEstimate() {
+    forceEstimate_ = std::make_shared<DiscreteTimeLPF>(leggedInterface_->getPinocchioInterface(),
+                                                       leggedInterface_->getCentroidalModelInfo(), *eeKinematicsPtr_);
+    ros::NodeHandle nh;
+    estimateFPublisher_ = nh.advertise<std_msgs::Float64MultiArray>("estimateF_topic", 10);
+}
+
 void LeggedCheaterController::setupStateEstimate(const std::string& /*taskFile*/, bool /*verbose*/) {
   stateEstimate_ = std::make_shared<FromTopicStateEstimate>(leggedInterface_->getPinocchioInterface(),
                                                             leggedInterface_->getCentroidalModelInfo(), *eeKinematicsPtr_);
 }
+
 
 }  // namespace legged
 
