@@ -8,9 +8,11 @@ find_package(catkin REQUIRED
         COMPONENTS
         roscpp
         ocs2_legged_robot
+        ocs2_legged_robot_ros
         legged_common
         realtime_tools
         tf2_ros
+        gazebo_ros_control
         )
 
 find_package(PkgConfig REQUIRED)
@@ -24,6 +26,8 @@ catkin_package(
         CATKIN_DEPENDS
         roscpp
         ocs2_legged_robot
+        ocs2_legged_robot_ros
+        gazebo_ros_control
         legged_common
         realtime_tools
         tf2_ros
@@ -48,7 +52,9 @@ add_library(${PROJECT_NAME}
         src/StateEstimateBase.cpp
         src/FromTopicEstimate.cpp
         src/LinearKalmanFilter.cpp
-        )
+        src/DiscreteTimeLPF.cpp
+        src/ContactProbabilityFromGait.cpp
+)
 
 target_link_libraries(${PROJECT_NAME}
         ${catkin_LIBRARIES}

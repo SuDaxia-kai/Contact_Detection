@@ -22,7 +22,10 @@ public:
     void loadSetting(const std::string& taskFile, bool verbose);
 
 private:
-    scalar_t gamma_;
+    // cutoff frequency
+    scalar_t lambda_;   // analog
+    scalar_t gamma_;    // digital
+
     scalar_t beta_;
     Eigen::Matrix<scalar_t, 12, 18> j_;
     Eigen::Matrix<scalar_t, 12, 1> aTau_;

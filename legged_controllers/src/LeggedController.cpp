@@ -21,11 +21,10 @@
 #include <legged_estimation/FromTopiceEstimate.h>
 #include <legged_estimation/LinearKalmanFilter.h>
 #include <legged_estimation/DiscreteTimeLPF.h>
+#include <legged_estimation/ContactProbabilityFromGait.h>
 #include <legged_wbc/HierarchicalWbc.h>
 #include <legged_wbc/WeightedWbc.h>
 #include <pluginlib/class_list_macros.hpp>
-
-#include <std_msgs/Float64MultiArray.h>
 
 namespace legged {
 bool LeggedController::init(hardware_interface::RobotHW* robot_hw, ros::NodeHandle& controller_nh) {
@@ -51,7 +50,7 @@ bool LeggedController::init(hardware_interface::RobotHW* robot_hw, ros::NodeHand
                                                              leggedInterface_->getCentroidalModelInfo(), *eeKinematicsPtr_, nh);
   selfCollisionVisualization_.reset(new LeggedSelfCollisionVisualization(leggedInterface_->getPinocchioInterface(),
                                                                          leggedInterface_->getGeometryInterface(), pinocchioMapping, nh));
-
+  dataShow_.data.clear();
   // Hardware interface
   auto* hybridJointInterface = robot_hw->get<HybridJointInterface>();
   std::vector<std::string> joint_names{"LF_HAA", "LF_HFE", "LF_KFE", "LH_HAA", "LH_HFE", "LH_KFE",
@@ -70,6 +69,9 @@ bool LeggedController::init(hardware_interface::RobotHW* robot_hw, ros::NodeHand
 
   // Force estimation
   setupForceEstimate();
+
+  // Contact Probability Model
+  setupContactProbabilityG();
 
   // Whole body control
   wbc_ = std::make_shared<WeightedWbc>(leggedInterface_->getPinocchioInterface(), leggedInterface_->getCentroidalModelInfo(),
@@ -100,13 +102,21 @@ void LeggedController::starting(const ros::Time& time) {
     ros::WallRate(leggedInterface_->mpcSettings().mrtDesiredFrequency_).sleep();
   }
   ROS_INFO_STREAM("Initial policy has been received.");
-
+  controllerTime_ = ros::Time::now();
   mpcRunning_ = true;
 }
 
 void LeggedController::update(const ros::Time& time, const ros::Duration& period) {
   // State Estimate
   updateStateEstimation(time, period);
+
+  // estimate the contact probability
+  vector_t cPro = contactProbabilityG_->update(leggedInterface_->getSwitchedModelReferenceManagerPtr()->getModeSchedule(), time, controllerTime_, period);
+  // visualization of cfp
+  for ( scalar_t contactProbability:cPro ) {
+      dataShow_.data.push_back(contactProbability);
+  }
+  testPublisher_.publish(dataShow_);
 
   // Update the current state of the system
   mpcMrtInterface_->setCurrentObservation(currentObservation_);
@@ -147,6 +157,7 @@ void LeggedController::update(const ros::Time& time, const ros::Duration& period
 
   // Publish the observation. Only needed for the command interface
   observationPublisher_.publish(ros_msg_conversions::createObservationMsg(currentObservation_));
+
 }
 
 void LeggedController::updateStateEstimation(const ros::Time& time, const ros::Duration& period) {
@@ -180,19 +191,11 @@ void LeggedController::updateStateEstimation(const ros::Time& time, const ros::D
 
   stateEstimate_->updateJointStates(jointPos, jointVel);
 
+  // estimate the force of feet
   forceEstimate_->updateJointStates(jointPos, jointVel);
   dynamic_cast<DiscreteTimeLPF&>(*forceEstimate_).updateTorque(jointEffort);
-  vector_t mytest = dynamic_cast<DiscreteTimeLPF&>(*forceEstimate_).update(time, period);
-  std::cerr << "estimate force is : " << mytest << std::endl;
+  vector_t forceEstimate = forceEstimate_->update(time, period);
 
-  // visualization of estimateF_
-  ros::NodeHandle nh;
-  std_msgs::Float64MultiArray msg;
-  msg.data.clear();
-  for (int i = 0; i < mytest.size(); ++i) {
-    msg.data.push_back(mytest(i));
-  }
-  estimateFPublisher_.publish(msg);
 
 
   stateEstimate_->updateContact(contactFlag);
@@ -284,7 +287,13 @@ void LeggedController::setupForceEstimate() {
     forceEstimate_ = std::make_shared<DiscreteTimeLPF>(leggedInterface_->getPinocchioInterface(),
                                                        leggedInterface_->getCentroidalModelInfo(), *eeKinematicsPtr_);
     ros::NodeHandle nh;
-    estimateFPublisher_ = nh.advertise<std_msgs::Float64MultiArray>("estimateF_topic", 10);
+    testPublisher_ = nh.advertise<std_msgs::Float64MultiArray>("test_topic", 10); // this test can used to vis the results that we want
+}
+
+void LeggedController::setupContactProbabilityG() {
+    ros::NodeHandle nh;
+    const std::string robotName = "legged_robot";
+    contactProbabilityG_ = std::make_shared<ContactProbabilityFromGait>(nh, robotName);
 }
 
 void LeggedCheaterController::setupStateEstimate(const std::string& /*taskFile*/, bool /*verbose*/) {

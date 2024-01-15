@@ -1,0 +1,68 @@
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" -S /home/sudaxia/graduationProject/src/Contact_Detection/legged_controllers -B /home/sudaxia/graduationProject/src/Contact_Detection/legged_controllers/cmake-build-debug
+-- Using CATKIN_DEVEL_PREFIX: /home/sudaxia/graduationProject/src/Contact_Detection/legged_controllers/cmake-build-debug/devel
+-- Using CMAKE_PREFIX_PATH: /home/sudaxia/graduationProject/devel;/opt/ros/noetic;/usr/local/lib;/opt/openrobots
+-- This workspace overlays: /home/sudaxia/graduationProject/devel;/opt/ros/noetic
+-- Found PythonInterp: /home/sudaxia/miniconda3/bin/python3 (found suitable version "3.9.16", minimum required is "3") 
+-- Using PYTHON_EXECUTABLE: /home/sudaxia/miniconda3/bin/python3
+-- Using Debian Python package layout
+-- Using empy: /home/sudaxia/miniconda3/lib/python3.9/site-packages/em.py
+-- Using CATKIN_ENABLE_TESTING: ON
+-- Call enable_testing()
+-- Using CATKIN_TEST_RESULTS_DIR: /home/sudaxia/graduationProject/src/Contact_Detection/legged_controllers/cmake-build-debug/test_results
+-- Forcing gtest/gmock from source, though one was otherwise available.
+-- Found gtest sources under '/usr/src/googletest': gtests will be built
+-- Found gmock sources under '/usr/src/googletest': gmock will be built
+-- Found PythonInterp: /home/sudaxia/miniconda3/bin/python3 (found version "3.9.16") 
+-- Using Python nosetests: /usr/bin/nosetests3
+-- catkin 0.8.10
+-- BUILD_SHARED_LIBS is on
+-- Using these message generators: gencpp;geneus;genlisp;gennodejs;genpy
+-- Configuring done
+CMake Warning at CMakeLists.txt:55 (add_library):
+  Cannot generate a safe runtime search path for target legged_controllers
+  because files in some directories may conflict with libraries in implicit
+  directories:
+
+    runtime library [libboost_program_options.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_chrono.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_filesystem.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_regex.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_date_time.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_system.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_thread.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+
+  Some of these libraries may not be found correctly.
+
+
+CMake Warning at CMakeLists.txt:68 (add_executable):
+  Cannot generate a safe runtime search path for target
+  legged_target_trajectories_publisher because files in some directories may
+  conflict with libraries in implicit directories:
+
+    runtime library [libboost_program_options.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_chrono.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_filesystem.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_regex.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_date_time.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_system.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+    runtime library [libboost_thread.so.1.71.0] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /usr/local/lib
+
+  Some of these libraries may not be found correctly.
+
+
+-- Generating done
+-- Build files have been written to: /home/sudaxia/graduationProject/src/Contact_Detection/legged_controllers/cmake-build-debug

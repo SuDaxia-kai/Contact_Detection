@@ -20,7 +20,8 @@ namespace legged {
 DiscreteTimeLPF::DiscreteTimeLPF(ocs2::PinocchioInterface pinocchioInterface, ocs2::CentroidalModelInfo info,
                                  const ocs2::PinocchioEndEffectorKinematics &eeKinematics)
         : StateEstimateBase(std::move(pinocchioInterface), std::move(info), eeKinematics) {
-    gamma_ = 0.3;
+    lambda_ = 15;
+    gamma_ = exp(-lambda_*0.002);
     beta_ = (1 - gamma_)/(gamma_ * 0.002);
     g_.setConstant(9.8);
     S_.setZero();

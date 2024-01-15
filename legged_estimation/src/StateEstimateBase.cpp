@@ -19,7 +19,6 @@ StateEstimateBase::StateEstimateBase(PinocchioInterface pinocchioInterface, Cent
       rbdState_(vector_t ::Zero(2 * info_.generalizedCoordinatesNum)) {
   ros::NodeHandle nh;
   odomPub_.reset(new realtime_tools::RealtimePublisher<nav_msgs::Odometry>(nh, "odom", 10));
-
   posePub_.reset(new realtime_tools::RealtimePublisher<geometry_msgs::PoseWithCovarianceStamped>(nh, "pose", 10));
 }
 
