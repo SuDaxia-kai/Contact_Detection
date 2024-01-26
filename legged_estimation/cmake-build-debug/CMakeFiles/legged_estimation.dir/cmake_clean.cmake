@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.o"
+  "CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.o"
+  "CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.o"
   "CMakeFiles/legged_estimation.dir/src/DiscreteTimeLPF.cpp.o"
   "CMakeFiles/legged_estimation.dir/src/FromTopicEstimate.cpp.o"
   "CMakeFiles/legged_estimation.dir/src/LinearKalmanFilter.cpp.o"

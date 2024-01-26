@@ -34,16 +34,22 @@ DiscreteTimeLPF::DiscreteTimeLPF(ocs2::PinocchioInterface pinocchioInterface, oc
     aTau_.setZero();
     Sl_.setOnes();
     Sl_.block(0, 6, 12, 12) = Eigen::MatrixXd::Identity(12, 12);
+    contactProFromF_.setZero();
+    contactProFromH_.setZero();
     estimateF_.setZero();
+    eeKinematics_->setPinocchioInterface(pinocchioInterface_);
     pinocchio::crba(pinocchioInterface_.getModel(), pinocchioInterface_.getData(), Eigen::Matrix<scalar_t, 18, 1>::Zero());
     lastM_ = pinocchioInterface_.getData().M;
 }
 
-void DiscreteTimeLPF::updateTorque(const vector_t& jointEffort) {
+void DiscreteTimeLPF::updateJointStates(const vector_t& jointPos, const vector_t& jointVel, const vector_t& jointEffort) {
+    rbdState_.segment(6, info_.actuatedDofNum) = jointPos;
+    rbdState_.segment(6 + info_.generalizedCoordinatesNum, info_.actuatedDofNum) = jointVel;
     aTau_ = jointEffort;
 }
 
 vector_t DiscreteTimeLPF::update(const ros::Time &time, const ros::Duration &period) {
+    std::lock_guard<std::mutex> lock(footMutex_);
     const auto& model = pinocchioInterface_.getModel();
     auto& data = pinocchioInterface_.getData();
     size_t actuatedDofNum = info_.actuatedDofNum;
@@ -63,6 +69,13 @@ vector_t DiscreteTimeLPF::update(const ros::Time &time, const ros::Duration &per
 
     pinocchio::crba(model, data, qPino);
     pinocchio::nonLinearEffects(model, data, qPino, vPino);
+    pinocchio::forwardKinematics(model, data, qPino, vPino);
+    pinocchio::updateFramePlacements(model, data);
+
+    const auto eePos = eeKinematics_->getPosition(vector_t());
+    for(int i = 0; i < contactProFromH_.size(); i++) {
+        contactProFromH_[i] = 0.5 * (1 + std::erf((-eePos[i][2]-0.28)/sqrt(2*0.025)));
+    }
 
     // compute the Jacobin of the feet
     j_ = matrix_t(3 * info_.numThreeDofContacts, info_.generalizedCoordinatesNum);
@@ -77,6 +90,11 @@ vector_t DiscreteTimeLPF::update(const ros::Time &time, const ros::Duration &per
     tau2_ = tau1_ + S_.transpose() * aTau_ - data.nle + (data.M - lastM_) * 500 * vPino;
     hatTau_ = tau1_ - (gamma_ * tau2_ + (1 - gamma_) * lastTau2_);
     estimateF_ = (Sl_ * j_.transpose()).inverse() * Sl_ * hatTau_;
+
+    for(int i = 0; i < contactProFromF_.size(); i++) {
+        contactProFromF_[i] = 0.5 * (1 + std::erf((estimateF_[3*i + 2] - 38)/sqrt(2*10)));
+    }
+
     lastM_ = data.M;
     lastTau2_ = tau2_;
     return estimateF_;

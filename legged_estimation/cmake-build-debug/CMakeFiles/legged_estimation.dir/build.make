@@ -109,18 +109,31 @@ CMakeFiles/legged_estimation.dir/src/DiscreteTimeLPF.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/legged_estimation.dir/src/DiscreteTimeLPF.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/DiscreteTimeLPF.cpp -o CMakeFiles/legged_estimation.dir/src/DiscreteTimeLPF.cpp.s
 
-CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.o: CMakeFiles/legged_estimation.dir/flags.make
-CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.o: ../src/ContactFromGait.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.o -c /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactFromGait.cpp
+CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.o: CMakeFiles/legged_estimation.dir/flags.make
+CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.o: ../src/ContactProbabilityFromGait.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.o -c /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactProbabilityFromGait.cpp
 
-CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactFromGait.cpp > CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.i
+CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactProbabilityFromGait.cpp > CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.i
 
-CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactFromGait.cpp -o CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.s
+CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactProbabilityFromGait.cpp -o CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.s
+
+CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.o: CMakeFiles/legged_estimation.dir/flags.make
+CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.o: ../src/ContactKalman.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.o -c /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactKalman.cpp
+
+CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactKalman.cpp > CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.i
+
+CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactKalman.cpp -o CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.s
 
 # Object files for target legged_estimation
 legged_estimation_OBJECTS = \
@@ -128,7 +141,8 @@ legged_estimation_OBJECTS = \
 "CMakeFiles/legged_estimation.dir/src/FromTopicEstimate.cpp.o" \
 "CMakeFiles/legged_estimation.dir/src/LinearKalmanFilter.cpp.o" \
 "CMakeFiles/legged_estimation.dir/src/DiscreteTimeLPF.cpp.o" \
-"CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.o"
+"CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.o" \
+"CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.o"
 
 # External object files for target legged_estimation
 legged_estimation_EXTERNAL_OBJECTS =
@@ -137,7 +151,8 @@ devel/lib/liblegged_estimation.so: CMakeFiles/legged_estimation.dir/src/StateEst
 devel/lib/liblegged_estimation.so: CMakeFiles/legged_estimation.dir/src/FromTopicEstimate.cpp.o
 devel/lib/liblegged_estimation.so: CMakeFiles/legged_estimation.dir/src/LinearKalmanFilter.cpp.o
 devel/lib/liblegged_estimation.so: CMakeFiles/legged_estimation.dir/src/DiscreteTimeLPF.cpp.o
-devel/lib/liblegged_estimation.so: CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.o
+devel/lib/liblegged_estimation.so: CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.o
+devel/lib/liblegged_estimation.so: CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.o
 devel/lib/liblegged_estimation.so: CMakeFiles/legged_estimation.dir/build.make
 devel/lib/liblegged_estimation.so: /home/sudaxia/graduationProject/devel/.private/ocs2_legged_robot_ros/lib/libocs2_legged_robot_ros.so
 devel/lib/liblegged_estimation.so: /opt/ros/noetic/lib/libtf.so
@@ -220,7 +235,7 @@ devel/lib/liblegged_estimation.so: /usr/lib/x86_64-linux-gnu/libboost_system.so.
 devel/lib/liblegged_estimation.so: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 devel/lib/liblegged_estimation.so: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
 devel/lib/liblegged_estimation.so: CMakeFiles/legged_estimation.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX shared library devel/lib/liblegged_estimation.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX shared library devel/lib/liblegged_estimation.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/legged_estimation.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

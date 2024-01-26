@@ -2,7 +2,9 @@
 // Created by sudaxia on 24-1-15.
 //
 
-#ifndef LEGGED_CONTROLLERS_CONTACTPROBABILITYFROMHEIGHT_H
-#define LEGGED_CONTROLLERS_CONTACTPROBABILITYFROMHEIGHT_H
+#pragma once
+#include "ContactProbabilityFromHeight.h"
 
-#endif //LEGGED_CONTROLLERS_CONTACTPROBABILITYFROMHEIGHT_H
+class ContactProbabilityFromHeight {
+
+};

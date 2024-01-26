@@ -1276,7 +1276,10 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactFromGait.cpp">
+		<Unit filename="/home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactKalman.cpp">
+			<Option target="legged_estimation"/>
+		</Unit>
+		<Unit filename="/home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/ContactProbabilityFromGait.cpp">
 			<Option target="legged_estimation"/>
 		</Unit>
 		<Unit filename="/home/sudaxia/graduationProject/src/Contact_Detection/legged_estimation/src/DiscreteTimeLPF.cpp">

@@ -28,6 +28,10 @@ public:
 
     int getTheSetTimeIndex(const ModeSchedule& modeSchedule);
 
+    vector_t getProFromGait() {
+        return contactProbability_;
+    };
+
     const ModeSequenceTemplate& getReceivedGait() {  return receivedGait_; }
 
     vector_t update(const ModeSchedule& ModeSchedule, const ros::Time& time, const ros::Time& controllerTime, const ros::Duration& period);

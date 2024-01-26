@@ -1363,32 +1363,59 @@ gtest/fast:
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest.dir/build.make gtest/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
-src/ContactFromGait.o: src/ContactFromGait.cpp.o
+src/ContactKalman.o: src/ContactKalman.cpp.o
 
-.PHONY : src/ContactFromGait.o
+.PHONY : src/ContactKalman.o
 
 # target to build an object file
-src/ContactFromGait.cpp.o:
-	$(MAKE) -f CMakeFiles/legged_estimation.dir/build.make CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.o
-.PHONY : src/ContactFromGait.cpp.o
+src/ContactKalman.cpp.o:
+	$(MAKE) -f CMakeFiles/legged_estimation.dir/build.make CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.o
+.PHONY : src/ContactKalman.cpp.o
 
-src/ContactFromGait.i: src/ContactFromGait.cpp.i
+src/ContactKalman.i: src/ContactKalman.cpp.i
 
-.PHONY : src/ContactFromGait.i
+.PHONY : src/ContactKalman.i
 
 # target to preprocess a source file
-src/ContactFromGait.cpp.i:
-	$(MAKE) -f CMakeFiles/legged_estimation.dir/build.make CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.i
-.PHONY : src/ContactFromGait.cpp.i
+src/ContactKalman.cpp.i:
+	$(MAKE) -f CMakeFiles/legged_estimation.dir/build.make CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.i
+.PHONY : src/ContactKalman.cpp.i
 
-src/ContactFromGait.s: src/ContactFromGait.cpp.s
+src/ContactKalman.s: src/ContactKalman.cpp.s
 
-.PHONY : src/ContactFromGait.s
+.PHONY : src/ContactKalman.s
 
 # target to generate assembly for a file
-src/ContactFromGait.cpp.s:
-	$(MAKE) -f CMakeFiles/legged_estimation.dir/build.make CMakeFiles/legged_estimation.dir/src/ContactFromGait.cpp.s
-.PHONY : src/ContactFromGait.cpp.s
+src/ContactKalman.cpp.s:
+	$(MAKE) -f CMakeFiles/legged_estimation.dir/build.make CMakeFiles/legged_estimation.dir/src/ContactKalman.cpp.s
+.PHONY : src/ContactKalman.cpp.s
+
+src/ContactProbabilityFromGait.o: src/ContactProbabilityFromGait.cpp.o
+
+.PHONY : src/ContactProbabilityFromGait.o
+
+# target to build an object file
+src/ContactProbabilityFromGait.cpp.o:
+	$(MAKE) -f CMakeFiles/legged_estimation.dir/build.make CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.o
+.PHONY : src/ContactProbabilityFromGait.cpp.o
+
+src/ContactProbabilityFromGait.i: src/ContactProbabilityFromGait.cpp.i
+
+.PHONY : src/ContactProbabilityFromGait.i
+
+# target to preprocess a source file
+src/ContactProbabilityFromGait.cpp.i:
+	$(MAKE) -f CMakeFiles/legged_estimation.dir/build.make CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.i
+.PHONY : src/ContactProbabilityFromGait.cpp.i
+
+src/ContactProbabilityFromGait.s: src/ContactProbabilityFromGait.cpp.s
+
+.PHONY : src/ContactProbabilityFromGait.s
+
+# target to generate assembly for a file
+src/ContactProbabilityFromGait.cpp.s:
+	$(MAKE) -f CMakeFiles/legged_estimation.dir/build.make CMakeFiles/legged_estimation.dir/src/ContactProbabilityFromGait.cpp.s
+.PHONY : src/ContactProbabilityFromGait.cpp.s
 
 src/DiscreteTimeLPF.o: src/DiscreteTimeLPF.cpp.o
 
@@ -1603,9 +1630,12 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
-	@echo "... src/ContactFromGait.o"
-	@echo "... src/ContactFromGait.i"
-	@echo "... src/ContactFromGait.s"
+	@echo "... src/ContactKalman.o"
+	@echo "... src/ContactKalman.i"
+	@echo "... src/ContactKalman.s"
+	@echo "... src/ContactProbabilityFromGait.o"
+	@echo "... src/ContactProbabilityFromGait.i"
+	@echo "... src/ContactProbabilityFromGait.s"
 	@echo "... src/DiscreteTimeLPF.o"
 	@echo "... src/DiscreteTimeLPF.i"
 	@echo "... src/DiscreteTimeLPF.s"

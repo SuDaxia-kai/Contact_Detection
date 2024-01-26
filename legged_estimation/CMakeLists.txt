@@ -54,6 +54,7 @@ add_library(${PROJECT_NAME}
         src/LinearKalmanFilter.cpp
         src/DiscreteTimeLPF.cpp
         src/ContactProbabilityFromGait.cpp
+        src/ContactKalman.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
