@@ -7,13 +7,13 @@
 namespace legged {
 
 ContactKalman::ContactKalman() {
-  xHat_.setZero();
+  xHat_.setOnes();
   A_.setZero();
   B_.setIdentity();
   Q_.setIdentity();
-  Q_ = 0.25 * Q_;
+  Q_ = 1.5 * Q_;
   R_.setIdentity();
-  R_ << 5 * Eigen::Matrix<scalar_t, 4, 4>::Identity(), 6.271 * Eigen::Matrix<scalar_t, 4, 4>::Identity();
+  R_ << 10 * Eigen::Matrix<scalar_t, 4, 4>::Identity(), 0.02 * Eigen::Matrix<scalar_t, 4, 4>::Identity();
   Z_.setZero();
   P_.setIdentity();
   P_ = 100. * P_;
@@ -24,6 +24,14 @@ ContactKalman::ContactKalman() {
 
 vector_t ContactKalman::update(DiscreteTimeLPF* footEstimate, ContactProbabilityFromGait* gaitEstimate,
                                const ros::Time &time, const ros::Duration &period) {
+//    double try_q = 0.7, try_r1 = 0.5, try_r2 = 0.02;
+//    ros::NodeHandle nh;
+//    nh.getParam("q", try_q);
+//    nh.getParam("r1", try_r1);
+//    nh.getParam("r2", try_r2);
+//    Q_ = try_q * Eigen::Matrix<scalar_t, 4, 4>::Identity();
+//    R_ << try_r1 * Eigen::Matrix<scalar_t, 4, 4>::Identity(), try_r2 * Eigen::Matrix<scalar_t, 4, 4>::Identity();
+
     Z_ << footEstimate->getProFromHeight(), footEstimate->getProFromForce();
     vector_t contactProFromGait = gaitEstimate->getProFromGait();
     xHat_ = A_ * xHat_ + B_ * contactProFromGait;

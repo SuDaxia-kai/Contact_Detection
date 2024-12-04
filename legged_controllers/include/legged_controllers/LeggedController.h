@@ -15,6 +15,7 @@
 
 #include <legged_estimation/StateEstimateBase.h>
 #include <legged_estimation/ContactProbabilityFromGait.h>
+#include <legged_estimation/ContactKalman.h>
 #include <legged_interface/LeggedInterface.h>
 #include <legged_wbc/WbcBase.h>
 
@@ -46,7 +47,7 @@ class LeggedController : public controller_interface::MultiInterfaceController<H
   virtual void setupMrt();
   virtual void setupStateEstimate(const std::string& taskFile, bool verbose);
   virtual void setupForceEstimate();
-  virtual void setupContactProbabilityG();
+  virtual void setupContactProbability();
 
   // Interface
   std::shared_ptr<LeggedInterface> leggedInterface_;
@@ -60,8 +61,9 @@ class LeggedController : public controller_interface::MultiInterfaceController<H
   vector_t measuredRbdState_;
   std::shared_ptr<StateEstimateBase> stateEstimate_;
   std::shared_ptr<CentroidalModelRbdConversions> rbdConversions_;
-  std::shared_ptr<StateEstimateBase> forceEstimate_;
+  std::shared_ptr<DiscreteTimeLPF> forceEstimate_;
   std::shared_ptr<ContactProbabilityFromGait> contactProbabilityG_;
+  std::shared_ptr<ContactKalman> contactKal_;
 
   // Whole Body Control
   std::shared_ptr<WbcBase> wbc_;

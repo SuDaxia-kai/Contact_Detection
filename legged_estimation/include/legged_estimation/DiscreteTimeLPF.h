@@ -20,7 +20,12 @@ public:
 
     vector_t update(const ros::Time& time, const ros::Duration& period) override;
 
-    vector_t getEstimateForce() {
+    vector_t getEstimateForceInContinuous() {
+        std::lock_guard<std::mutex> lock(footMutex_);
+        return estimateFc_;
+    }
+
+    vector_t getEstimateForceInDiscrete() {
         std::lock_guard<std::mutex> lock(footMutex_);
         return estimateF_;
     }
@@ -48,17 +53,21 @@ private:
     Eigen::Matrix<scalar_t, 12, 1> aTau_;
     Eigen::Matrix<scalar_t, 12, 18> Sl_;
     Eigen::Matrix<scalar_t, 12, 1> estimateF_;
+    Eigen::Matrix<scalar_t, 12, 1> estimateFc_;
     Eigen::Matrix<scalar_t, 18, 1> g_;
     Eigen::Matrix<scalar_t, 12, 18> S_;
     Eigen::Matrix<scalar_t, 18, 1> tau1_;
     Eigen::Matrix<scalar_t, 18, 1> tau2_;
+
     Eigen::Matrix<scalar_t, 18, 1> lastTau2_;
     Eigen::Matrix<scalar_t, 18, 1> hatTau_;
+    Eigen::Matrix<scalar_t, 18, 1> lastX_;
     Eigen::Matrix<scalar_t, 18, 18> lastM_;
     Eigen::Matrix<scalar_t,  4, 1> contactProFromF_;
     Eigen::Matrix<scalar_t,  4, 1> contactProFromH_;
 
-
+    Eigen::Matrix<scalar_t, 18, 1> tau2c_;
+    Eigen::Matrix<scalar_t, 18, 1> lastTau2c_;
 
 };
 

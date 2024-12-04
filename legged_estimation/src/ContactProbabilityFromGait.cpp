@@ -67,8 +67,8 @@ vector_t ContactProbabilityFromGait::update(const ModeSchedule& ModeSchedule, co
     contact_flag_t contactFlag = modeNumber2StanceLeg(currentMode);
     for( int i = 0; i < 4; i++ ) {
         /* In this part, we should define average and covariance in ./config/a1/task.info  */
-        contactProbability_[i] = 0.5 * (contactFlag[i] * (std::erf(phase/sqrt(2*0.0025)) + std::erf((1-phase)/sqrt(2*0.0025))) +
-                                      !contactFlag[i] * (2 + std::erf((-phase)/ sqrt(2*0.0025)) + std::erf((phase-1)/ sqrt(2*0.0025))));
+        contactProbability_[i] = 0.5 * (contactFlag[i] * (std::erf(phase/sqrt(2*0.025)) + std::erf((1-phase)/sqrt(2*0.025))) +
+                                      !contactFlag[i] * (2 + std::erf((-phase)/ sqrt(2*0.025)) + std::erf((phase-1)/ sqrt(2*0.025))));
     }
 
     return contactProbability_;

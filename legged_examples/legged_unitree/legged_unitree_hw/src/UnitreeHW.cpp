@@ -1,4 +1,3 @@
-
 //
 // Created by qiayuan on 1/24/22.
 //
@@ -165,6 +164,7 @@ bool UnitreeHW::setupContactSensor(ros::NodeHandle& nh) {
   return true;
 }
 
+/* 50Hz */
 void UnitreeHW::updateJoystick(const ros::Time& time) {
   if ((time - lastPub_).toSec() < 1 / 50.) {
     return;
